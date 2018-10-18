@@ -1,5 +1,7 @@
 FROM alpine:3.8
 
+MAINTAINER https://github.com/zhangliqiang/fabric8-java-alpine-openjdk8-jre
+
 USER root
 
 RUN mkdir -p /deployments
