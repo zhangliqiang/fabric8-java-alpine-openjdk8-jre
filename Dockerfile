@@ -23,7 +23,6 @@ RUN apk add --update \
 
 # Add run script as /deployments/run-java.sh and make it executable
 COPY run-java.sh /deployments/
-COPY zoneinfo/Asia/Shanghai /etc/localtime
 RUN chmod 755 /deployments/run-java.sh
 
 CMD [ "/deployments/run-java.sh" ]
