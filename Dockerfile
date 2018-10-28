@@ -4,12 +4,14 @@ MAINTAINER https://github.com/zhangliqiang/fabric8-java-alpine-openjdk8-jre
 
 USER root
 
-RUN mkdir -p /deployments
+RUN mkdir -p /deployments \
+ && apk add tzdata \
+ && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \ 
+ && echo "Asia/Shanghai" > /etc/timezone
 
 # JAVA_APP_DIR is used by run-java.sh for finding the binaries
 ENV JAVA_APP_DIR=/deployments \
     JAVA_MAJOR_VERSION=8
-
 
 # /dev/urandom is used as random source, which is perfectly safe
 # according to http://www.2uo.de/myths-about-urandom/
@@ -21,6 +23,7 @@ RUN apk add --update \
 
 # Add run script as /deployments/run-java.sh and make it executable
 COPY run-java.sh /deployments/
+COPY zoneinfo/Asia/Shanghai /etc/localtime
 RUN chmod 755 /deployments/run-java.sh
 
 CMD [ "/deployments/run-java.sh" ]
