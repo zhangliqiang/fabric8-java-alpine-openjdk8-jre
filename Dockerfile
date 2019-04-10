@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.9.3
 
 MAINTAINER https://github.com/zhangliqiang/fabric8-java-alpine-openjdk8-jre
 
