@@ -283,7 +283,7 @@ format_classpath() {
 # ==========================================================================
 
 memory_options() {
-  echo "$(calc_init_memory) $(calc_max_memory)"
+  echo "$(calc_init_memory) $(calc_max_memory) $(calc_max_perm_size)"
   return
 }
 
@@ -311,6 +311,23 @@ calc_max_memory() {
     calc_mem_opt "${CONTAINER_MAX_MEMORY}" "25" "mx"
   else
     calc_mem_opt "${CONTAINER_MAX_MEMORY}" "50" "mx"
+  fi
+}
+
+calc_max_perm_size() {
+  # Check whether MaxPermSize is already given in JAVA_OPTIONS
+  if echo "${JAVA_OPTIONS:-}" | grep -q -- "-MaxPermSize"; then
+    return
+  fi
+
+  if [ -z "${CONTAINER_MAX_MEMORY:-}" ]; then
+    return
+  fi
+
+  if [ "${CONTAINER_MAX_MEMORY}" -le 314572800 ]; then
+    calc_mem_opt "${CONTAINER_MAX_MEMORY}" "12" "X:MaxPermSize="
+  else
+    calc_mem_opt "${CONTAINER_MAX_MEMORY}" "25" "X:MaxPermSize="
   fi
 }
 
