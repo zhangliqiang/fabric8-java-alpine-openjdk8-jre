@@ -283,7 +283,7 @@ format_classpath() {
 # ==========================================================================
 
 memory_options() {
-  echo "$(calc_init_memory) $(calc_max_memory) $(calc_max_perm_size)"
+  echo "$(calc_init_memory) $(calc_max_memory) $(calc_max_perm_size) $(calc_thread_stack_size)"
   return
 }
 
@@ -329,6 +329,14 @@ calc_max_perm_size() {
   else
     calc_mem_opt "${CONTAINER_MAX_MEMORY}" "25" "X:MaxPermSize="
   fi
+}
+
+calc_thread_stack_size() {
+  # Check whether Xss is already given in JAVA_OPTIONS
+  if echo "${JAVA_OPTIONS:-}" | grep -q -- "-Xss"; then
+    return
+  fi
+  echo "-Xss:5m"
 }
 
 # Check for memory options and set initial heap size if requested
