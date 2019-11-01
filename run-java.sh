@@ -336,7 +336,7 @@ calc_thread_stack_size() {
   if echo "${JAVA_OPTIONS:-}" | grep -q -- "-Xss"; then
     return
   fi
-  echo "-Xss:5m"
+  echo "-Xss5m"
 }
 
 # Check for memory options and set initial heap size if requested
