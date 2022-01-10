@@ -12,7 +12,8 @@ RUN mkdir -p /deployments \
 # JAVA_APP_DIR is used by run-java.sh for finding the binaries
 ENV JAVA_APP_DIR=/deployments \
     JAVA_MAJOR_VERSION=8 \
-    JAVA_OPTIONS=-Dfile.encoding=utf-8
+    JAVA_OPTIONS=-Dfile.encoding=utf-8 \
+    LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 
 # /dev/urandom is used as random source, which is perfectly safe
 # according to http://www.2uo.de/myths-about-urandom/
