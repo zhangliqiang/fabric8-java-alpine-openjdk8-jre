@@ -23,13 +23,6 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-      - name: Add Mask
-        run: |
-          echo '::echo::off'
-          echo "::add-mask::${{ github.event.inputs.registryAddress }}"
-          echo "::add-mask::${{ github.event.inputs.registryUsername }}"
-          echo "::add-mask::${{ github.event.inputs.registryPassword }}"
-          echo "::add-mask::${{ github.event.inputs.dockerImageName }}"
       - name: Checkout
         uses: actions/checkout@v2
       - name: Prepare
